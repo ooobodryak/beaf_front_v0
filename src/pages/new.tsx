@@ -1,7 +1,11 @@
+import { Upload } from '../components/Upload';
+
 export const New = () => {
   return (
     <div>
-      {/* Контейнер форм загрузки картинок. */}
+      <form>
+        <Upload />
+      </form>
       {/* Сами поля. */}
       {/* Поле описания. */}
     </div>
