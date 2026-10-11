@@ -13,7 +13,8 @@ const config: Config = {
   objectWrap: 'collapse',
   arrowParens: 'always',
   endOfLine: 'lf',
-  singleAttributePerLine: true
+  singleAttributePerLine: true,
+  plugins: ['prettier-plugin-tailwindcss']
 };
 
 export default config;

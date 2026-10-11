@@ -1,6 +1,13 @@
 import { useCallback, useRef, useState, type DragEvent, type FC } from 'react';
-import { fileId, toUploadedFile, revokeUrls } from '../helpers/upload';
-import type { UploadedFile } from '../types/upload';
+import { fileId, revokeUrls, toUploadedFile } from '@/helpers/upload';
+
+export interface UploadedFile {
+  /** Стабильный идентификатор: имя + размер + дата изменения. */
+  id: string;
+  file: File;
+  /** Object URL для превью; null для не-изображений. */
+  previewUrl: string | null;
+}
 
 interface UploadProps {
   className?: string;
@@ -13,7 +20,7 @@ interface UploadProps {
 export const Upload: FC<UploadProps> = ({
   className,
   accept = 'image/*',
-  maxFiles = 1,
+  maxFiles = 1
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<UploadedFile[]>([]);
@@ -39,7 +46,7 @@ export const Upload: FC<UploadProps> = ({
         return merged;
       });
     },
-    [maxFiles],
+    [maxFiles]
   );
 
   const removeFile = useCallback((id: string) => {
@@ -57,7 +64,7 @@ export const Upload: FC<UploadProps> = ({
         e.target.value = '';
       }
     },
-    [addFiles],
+    [addFiles]
   );
 
   const handleDragOver = useCallback((e: DragEvent<HTMLDivElement>) => {
@@ -79,7 +86,7 @@ export const Upload: FC<UploadProps> = ({
         addFiles(e.dataTransfer.files);
       }
     },
-    [addFiles],
+    [addFiles]
   );
 
   const openFilePicker = useCallback(() => {
@@ -93,16 +100,16 @@ export const Upload: FC<UploadProps> = ({
     <div className={className}>
       <input
         ref={inputRef}
-        type="file"
+        type='file'
         accept={accept}
         multiple={isMultiple}
-        aria-hidden="true"
+        aria-hidden='true'
         tabIndex={-1}
         onChange={handleInputChange}
       />
 
       <div
-        role="button"
+        role='button'
         tabIndex={0}
         aria-label={`Загрузить файлы. Выбрано ${files.length} из ${maxFiles}`}
         aria-disabled={isAtLimit}
@@ -125,15 +132,22 @@ export const Upload: FC<UploadProps> = ({
       </div>
 
       {files.length > 0 && (
-        <ul role="list" aria-label="Загруженные файлы">
+        <ul
+          role='list'
+          aria-label='Загруженные файлы'
+        >
           {files.map(({ id, file, previewUrl }) => (
             <li key={id}>
               {previewUrl && (
-                <img src={previewUrl} alt={file.name} loading="lazy" />
+                <img
+                  src={previewUrl}
+                  alt={file.name}
+                  loading='lazy'
+                />
               )}
               <span title={file.name}>{file.name}</span>
               <button
-                type="button"
+                type='button'
                 aria-label={`Удалить ${file.name}`}
                 onClick={(e) => {
                   e.stopPropagation();

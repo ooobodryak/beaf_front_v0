@@ -1,4 +1,4 @@
-import { Upload } from '../components/Upload';
+import { Upload } from '@/components/Upload';
 
 export const New = () => {
   return (
@@ -6,8 +6,6 @@ export const New = () => {
       <form>
         <Upload />
       </form>
-      {/* Сами поля. */}
-      {/* Поле описания. */}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import type { UploadedFile } from '../types/upload';
+import type { UploadedFile } from '@/components/Upload';
 
 /**
  * Возвращает стабильный идентификатор файла
@@ -14,7 +14,7 @@ export const fileId = (file: File): string =>
 export const toUploadedFile = (file: File): UploadedFile => ({
   id: fileId(file),
   file,
-  previewUrl: file.type.startsWith('image/') ? URL.createObjectURL(file) : null,
+  previewUrl: file.type.startsWith('image/') ? URL.createObjectURL(file) : null
 });
 
 /**
